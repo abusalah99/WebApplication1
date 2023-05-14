@@ -1,8 +1,8 @@
 ﻿namespace WebApplication1;
 
-public class BookConfigration : BaseConfigration<BookEntity>
+public class BookConfigration : BaseConfigration<Book>
 {
-    public override void Configure(EntityTypeBuilder<BookEntity> builder)
+    public override void Configure(EntityTypeBuilder<Book> builder)
     {
         base.Configure(builder);
 

@@ -31,7 +31,7 @@ public class JwtBearerOptionsSetup : IPostConfigureOptions<JwtBearerOptions>
             {
                 ctx.Response.OnStarting(async () =>
                 {
-                    ResponseResult result = new ResponseResult("You are not authorized");
+                    ResponseResult result = new ("You are not authorized");
                     string response = JsonSerializer.Serialize(result);
 
                     ctx.Response.ContentType = "application/json";

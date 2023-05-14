@@ -2,7 +2,7 @@
 
 [Route("api/[controller]")]
 [ApiController]
-public class HomeController : BaseSettingsController<BookEntity>
+public class HomeController : BaseSettingsController<Book>
 {
     public HomeController(IBookUnitOfWork unitOfWork)
              : base(unitOfWork) { }

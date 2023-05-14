@@ -1,3 +1,3 @@
 ﻿namespace WebApplication1;
 
-public interface IBookRepsitory :IBaseRepositiorySettings<BookEntity> { }
+public interface IBookRepsitory :IBaseRepositiorySettings<Book> { }

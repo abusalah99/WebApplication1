@@ -4,6 +4,7 @@ public class BookEntity : BaseEntitySettings
     public string? Author { get; set; }
     public int Pages { get; set; }
     public DateTime ReleaseDate { get; set; }
+    public string? ImageExtension { get; set; }
     public byte[]? CoverImage { get; set; }
 
 }

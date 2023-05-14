@@ -3,10 +3,10 @@
 [Route("api/Admin/[controller]")]
 [ApiController]
 [Authorize(Roles = "Admin")]
-public class BookAdminController: BaseSettingsController<BookEntity>
+public class BookController: BaseSettingsController<BookEntity>
 {
     private readonly IBookUnitOfWork _unitOfWork;
-    public BookAdminController(BookUnitOfWork unitOfWork)
+    public BookController(IBookUnitOfWork unitOfWork)
         : base(unitOfWork) => _unitOfWork = unitOfWork;
 
     [HttpPost]
@@ -14,7 +14,7 @@ public class BookAdminController: BaseSettingsController<BookEntity>
     {
         await _unitOfWork.Create(BookRequest);
 
-        ResponseResult<string> response = new("Home section created");
+        ResponseResult<string> response = new("Book created");
         return Ok(response);
     }
 
@@ -23,7 +23,7 @@ public class BookAdminController: BaseSettingsController<BookEntity>
     {
         await _unitOfWork.Update(BookRequest);
 
-        ResponseResult<string> response = new("Home section updated");
+        ResponseResult<string> response = new("Book updated");
         return Ok(response);
     }
     [HttpDelete("{id}")]
