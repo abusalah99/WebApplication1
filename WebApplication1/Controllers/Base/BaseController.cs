@@ -30,7 +30,7 @@ public class BaseController<TEntity> : ControllerBase
     {
         await _unitOfWork.Update(entity);
 
-        ResponseResult<TEntity> response = new(entity);
+        ResponseResult<string> response = new($"{typeof(TEntity).Name} Updated");
 
         return Ok(response);
     }

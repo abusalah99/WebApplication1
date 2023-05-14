@@ -6,11 +6,9 @@ public class BookConfigration : BaseConfigration<Book>
     {
         base.Configure(builder);
 
-        builder.Property(e => e.CoverImage).IsRequired();
+        builder.Property(e => e.Cover_Image).IsRequired();
 
         builder.Property(e => e.Pages).IsRequired();
-
-        builder.Property(e => e.ReleaseDate).IsRequired();
 
         builder.Property(e => e.Author).IsRequired();
     }
