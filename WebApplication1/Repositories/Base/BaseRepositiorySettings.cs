@@ -6,6 +6,6 @@ public class BaseRepositiorySettings<TEntity> : BaseRepository<TEntity>
     public BaseRepositiorySettings(ApplicationDbContext context) : base(context) { }
 
     public virtual async Task<IEnumerable<TEntity>> Search(string searchText) =>
-        await Task.Run(() => dbSet.Where(e => e.Titel.Contains(searchText)));
+        await Task.Run(() => dbSet.Where(e => e.Title.Contains(searchText)));
 
 }

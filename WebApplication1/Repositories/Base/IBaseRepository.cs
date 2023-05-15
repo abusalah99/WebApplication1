@@ -12,6 +12,4 @@ public interface IBaseRepository<TEntity> where TEntity : BaseEntity
 
     Task Remove(Guid id);
 
-    Task<IDbContextTransaction> GetTransaction();
-
 }

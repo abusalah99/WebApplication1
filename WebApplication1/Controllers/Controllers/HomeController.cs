@@ -10,4 +10,7 @@ public class HomeController : BaseSettingsController<Book>
     [HttpGet]
     public async Task<IActionResult> Get() => await Read();
 
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(Guid id) => await Read(id);  
+
 }

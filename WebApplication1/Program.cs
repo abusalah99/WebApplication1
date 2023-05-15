@@ -45,7 +45,9 @@ builder.Services.AddSingleton<IImageConverter, ImageConverter>();
 builder.Services.AddSingleton<IJwtProvider, JwtProvider>();
 
 builder.Services.AddTransient<GlobalErrorHandlerMiddleware>();
+builder.Services.AddTransient<TransactionRollbackMiddleware>();
 builder.Services.AddTransient<RefreshTokenValidator>();
+builder.Services.AddTransient<CorsMiddleware>();
 
 var app = builder.Build();
 
@@ -54,6 +56,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.UseMiddleware<GlobalErrorHandlerMiddleware>();
+app.UseMiddleware<CorsMiddleware>();
+app.UseMiddleware<TransactionRollbackMiddleware>();
 
 app.MapControllers();
 

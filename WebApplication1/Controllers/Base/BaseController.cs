@@ -1,6 +1,4 @@
 ﻿namespace WebApplication1;
-
-[EnableCors("AllowAll")]
 public class BaseController<TEntity> : ControllerBase
  where TEntity : BaseEntity
 {
@@ -22,6 +20,15 @@ public class BaseController<TEntity> : ControllerBase
         IEnumerable<TEntity> entities = await _unitOfWork.Read();
 
         ResponseResult<IEnumerable<TEntity>> response = new(entities);
+
+        return Ok(response);
+    }
+    protected virtual async Task<IActionResult> Read(Guid id)
+    {
+
+         TEntity entity = await _unitOfWork.Read(id);
+
+        ResponseResult<TEntity> response = new(entity);
 
         return Ok(response);
     }

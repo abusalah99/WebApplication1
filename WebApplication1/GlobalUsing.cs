@@ -6,7 +6,6 @@ global using Microsoft.EntityFrameworkCore.ValueGeneration;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
-global using Microsoft.AspNetCore.Cors;
 global using Microsoft.AspNetCore.Authorization;
 
 global using Microsoft.Extensions.Options;

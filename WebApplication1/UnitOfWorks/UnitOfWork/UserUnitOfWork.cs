@@ -3,7 +3,6 @@
 public class UserUnitOfWork : BaseUnitOfWork<User>, IUserUnitOfWork
 {
     private readonly IUserRepository _userRepository;
-    private readonly ILogger<UserUnitOfWork> _logger;
     private readonly IJwtProvider _jwtProvider;
     private readonly RefreshTokenValidator _refreshTokenValidator;
     private readonly IRefreshTokenRepository _refreshTokenRepository;
@@ -11,14 +10,13 @@ public class UserUnitOfWork : BaseUnitOfWork<User>, IUserUnitOfWork
     private readonly JwtAccessOptions _jwtAccessOptions;
     private readonly IImageConverter _imageConverter;
 
-    public UserUnitOfWork(IUserRepository repository, ILogger<UserUnitOfWork> logger,
+    public UserUnitOfWork(IUserRepository repository,
         IJwtProvider jwtProvider, RefreshTokenValidator refreshTokenValidator,
-        IRefreshTokenRepository refreshTokenRepository,
+        IRefreshTokenRepository refreshTokenRepository, 
         IOptions<JwtRefreshOptions> jwtRefreshOptions, 
         IOptions<JwtAccessOptions> jwtAccessOptions,
-        IImageConverter converter) : base(repository, logger)
+        IImageConverter converter) : base(repository)
     {
-        _logger = logger;
         _userRepository = repository;
         _jwtProvider = jwtProvider;
         _refreshTokenValidator = refreshTokenValidator;
@@ -82,22 +80,8 @@ public class UserUnitOfWork : BaseUnitOfWork<User>, IUserUnitOfWork
         return user;
     }
 
-    public async Task DeleteUserByMail(string mail)
-    {
-        using IDbContextTransaction transaction = await _userRepository.GetTransaction();
-        try
-        {
-            await _userRepository.DeleteByMail(mail);
-        }
-        catch (Exception exception)
-        {
-            transaction.Rollback();
-
-            _logger.LogError(exception.Message);
-        }
-        await transaction.CommitAsync();
-    }
-
+    public async Task DeleteUserByMail(string mail) => await _userRepository.DeleteByMail(mail);
+  
     public async Task<Token> Login(LoginRequest request)
     {
         User? userFromDb = await GetUserByMail(request.Email);
@@ -169,18 +153,7 @@ public class UserUnitOfWork : BaseUnitOfWork<User>, IUserUnitOfWork
         if (userFromDb == null)
             throw new ArgumentException("Invalid Token");
 
-        using IDbContextTransaction transaction = await _refreshTokenRepository.GetTransaction();
-        try
-        {
-            await _refreshTokenRepository.Remove(userFromDb.Token.Id);
-        }
-        catch (Exception exception)
-        {
-            transaction.Rollback();
-
-            _logger.LogError(exception.Message);
-        }
-        await transaction.CommitAsync();
+        await _refreshTokenRepository.Remove(userFromDb.Token.Id);
     }
 
     public async Task<Token> UpdatePassword(PasswordRequest password, Guid id)

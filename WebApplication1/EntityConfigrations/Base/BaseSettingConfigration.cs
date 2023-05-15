@@ -6,8 +6,8 @@ public class BaseConfigrationSettings<TEntity> : BaseConfigration<TEntity>, IEnt
     {
         base.Configure(builder);
 
-        builder.Property(e => e.Titel).IsRequired();
-        builder.Property(e => e.Titel).HasMaxLength(20);
+        builder.Property(e => e.Title).IsRequired();
+        builder.Property(e => e.Title).HasMaxLength(20);
     }
 
 }
